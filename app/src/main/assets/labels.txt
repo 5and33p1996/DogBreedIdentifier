@@ -1,0 +1,25 @@
+Basenji
+Basset Hound
+Beagle
+Bernese Mountain Dog
+Blood hound
+Border Collie
+Chihuahua
+Chow Chow
+Doberman
+German Shepherd
+German Short Haired Pointer
+Golden Retriever
+Great Dane
+Irish Wolfhound
+Labrador Retriever
+Pomeranian
+Poodle
+Pug
+Rottweiler
+Saint Bernard
+Samoyed
+Shih-Tzu
+Siberian Husky
+Welsh Springer Spaniel
+Yorkshire Terrier

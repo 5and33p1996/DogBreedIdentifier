@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">DogBreedIdentifier</string>
+    <string name="result_string">Showing Top 5 results</string>
+    <string name="not_satisfied"><u>Not satisfied with the results?</u></string>
+
+    <string name="image_description">Chosen Image</string>
+
+    <string name="question_mark"><u>[?]</u></string>
+
+    <string name="about">About</string>
+    <string name="best_results">Getting the best results</string>
+
+    <string name="about_text">
+        How to read the results?</string>
+
+    <string name="about_text_ans">
+        The model outputs values, each one of which is called \"confidence\" value. This denotes the
+        probability of the dog in the image belonging to a class (i.e breed). In other words, it
+        simply denotes how confident the model is that the given image is of a dog of some particular
+        breed.\n\n
+        So, what this means is, that if, for example, the results for a dog are as follows\n\n
+        Beagle - 98%\n
+        Border Collie - 0.88%\n
+        Saint Bernard - 0.1%
+        etc\n\nthen this does NOT mean that the model thinks the dog is a mix of said breeds. The
+        results only show the top 5 guesses and how confident the model is with each guess.
+    </string>
+
+    <string name="developed_by">Designed and Developed by</string>
+    <string name="my_name">Sandeep Tadepalli</string>
+
+    <string name="for_best_results">For getting the best results, make sure you have sufficient
+    lighting, and the dog is in the centre of the frame and is in focus and in foreground. Make
+    sure you have only one dog in the picture. Also, ensure that the dog is not wearing any
+    clothing, like those fancy hats or sweaters, as they may affect results. Also do note that
+    the face of the dog is visible to get the best possible result.
+    \n\nStill not getting accurate results? Check the list of breeds which the app can currently
+    recognize (support for more will be coming soon!)\n
+    1. Basenji\n
+    2. Basset\n
+    3. Beagle\n
+    4. Bernese Mountain Dog\n
+    5. Bloodhound\n
+    6. Border Collie\n
+    7. Chihuahua\n
+    8. ChowChow\n
+    9. Doberman\n
+    10. German Shepherd\n
+    11. German Short Haired Pointer\n
+    12. Golden Retriever\n
+    13. Great Dane\n
+    14. Irish Wolfhound\n
+    15. Labrador Retriever\n
+    16. Newfoundland\n
+    17. Pomeranian\n
+    18. Poodle\n
+    19. Pug\n
+    20. Rottweiler\n
+    21. Saint Bernard\n
+    22. Samoyed\n
+    23. Shih-Tzu\n
+    24. Siberian Husky\n
+    25. Tibetan Mastiff\n
+    26. Welsh Springer Spaniel\n
+    27. Yorkshire Terrier\n\n
+    </string>
+</resources>
