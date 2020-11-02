@@ -15,6 +15,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import androidx.exifinterface.media.ExifInterface;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int NUMBER_OF_RESULTS = 5;
 
-    private Bitmap photo = null;
+    private UIDataViewModel viewModel;
     private Uri photoUri;
 
     private ImageView imageView;
@@ -96,8 +98,16 @@ public class MainActivity extends AppCompatActivity {
             classifier.Initialize(this);
         }catch (IOException ioe){
 
-            ToastUtil.showToast(this, "Fatal Error Ocurred!!");
+            ToastUtil.showToast(this, "Fatal Error Occurred!!");
             classifier = null;
+            return;
+        }
+
+        viewModel = new ViewModelProvider(this).get(UIDataViewModel.class);
+
+        if(viewModel.hasData()){
+
+            displayViewModelData();
         }
     }
 
@@ -189,6 +199,23 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    void displayViewModelData(){
+
+        cardView.setVisibility(View.VISIBLE);
+
+        imageView.setImageBitmap(viewModel.getBitmap());
+
+        if(viewModel.getPredictions() == null){
+
+            inferenceButton.setVisibility(View.VISIBLE);
+            resultLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        inferenceButton.setVisibility(View.GONE);
+        displayResult();
+    }
+
     @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                               @NonNull int[] grantResults){
@@ -229,6 +256,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        viewModel.clearData();
+
         if (requestCode == REQUEST_CAPTURE_CODE) {
 
             Bitmap capturedPhoto = getBitmapFromUri(photoUri);
@@ -243,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(rotateAngle == 0){
 
-                photo = capturedPhoto;
+                viewModel.setBitmap(capturedPhoto);
             }
 
             else{
@@ -251,11 +280,13 @@ public class MainActivity extends AppCompatActivity {
                 Matrix matrix = new Matrix();
                 matrix.postRotate(rotateAngle);
 
-                photo = Bitmap.createBitmap(capturedPhoto, 0, 0, capturedPhoto.getWidth(),
+                Bitmap bitmap = Bitmap.createBitmap(capturedPhoto, 0, 0, capturedPhoto.getWidth(),
                         capturedPhoto.getHeight(), matrix, true);
+
+                viewModel.setBitmap(bitmap);
             }
 
-            imageView.setImageBitmap(photo);
+            imageView.setImageBitmap(viewModel.getBitmap());
         }
 
         else if (requestCode == PICK_FILE_CODE){
@@ -268,20 +299,23 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            photo = getBitmapFromUri(uri);
+            Bitmap bitmap = getBitmapFromUri(uri);
 
-            if(photo == null){
+            if(bitmap == null){
                 //Error
                 ToastUtil.showToast(this, "Unable to load Bitmap!");
                 return;
             }
 
-            imageView.setImageBitmap(photo);
+            viewModel.setBitmap(bitmap);
+
+            imageView.setImageBitmap(viewModel.getBitmap());
         }
 
         cardView.setVisibility(View.VISIBLE);
         inferenceButton.setVisibility(View.VISIBLE);
         resultLayout.setVisibility(View.GONE);
+
     }
 
     Bitmap getBitmapFromUri(Uri uri){
@@ -318,29 +352,31 @@ public class MainActivity extends AppCompatActivity {
             public void run(){
 
                 final long startTime = SystemClock.uptimeMillis();
-                final HashMap<String, Float> predictions = classifier.predict(photo);
+                final HashMap<String, Float> predictions = classifier.predict(viewModel.getBitmap());
                 final long endTime = SystemClock.uptimeMillis();
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        displayResult(predictions, (endTime - startTime));
+                        viewModel.setPredictions(predictions);
+                        viewModel.setTimeTaken(endTime - startTime);
+                        displayResult();
                     }
                 });
             }
         }).start();
     }
 
-    private void displayResult(HashMap<String, Float> predictions, long timeTaken){
+    private void displayResult(){
 
-        String timeString = "Time Taken for inference - " + timeTaken + "ms";
+        String timeString = "Time Taken for inference - " + viewModel.getTimeTaken() + "ms";
         timeView.setText(timeString);
 
         DecimalFormat df = new DecimalFormat("0.00");
 
         int i = 0;
 
-        for(Map.Entry<String, Float> entry : predictions.entrySet()){
+        for(Map.Entry<String, Float> entry : viewModel.getPredictions().entrySet()){
 
             if(i == NUMBER_OF_RESULTS){
 
@@ -375,10 +411,6 @@ public class MainActivity extends AppCompatActivity {
             exifInterface = new ExifInterface(inputStream);
 
         }catch (IOException ioe){
-            ToastUtil.showToast(this, "Failed to read the file!");
-        }
-
-        if(exifInterface == null){
 
             return 0;
         }
