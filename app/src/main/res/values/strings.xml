@@ -7,6 +7,12 @@
 
     <string name="question_mark"><u>[?]</u></string>
 
+    <string name="pick_file">Pick a File</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="start_inference">Start Inference</string>
+
+    <string name="progress_string">Identifying…</string>
+
     <string name="about">About</string>
     <string name="best_results">Getting the best results</string>
 
@@ -51,17 +57,15 @@
     13. Great Dane\n
     14. Irish Wolfhound\n
     15. Labrador Retriever\n
-    16. Newfoundland\n
-    17. Pomeranian\n
-    18. Poodle\n
-    19. Pug\n
-    20. Rottweiler\n
-    21. Saint Bernard\n
-    22. Samoyed\n
-    23. Shih-Tzu\n
-    24. Siberian Husky\n
-    25. Tibetan Mastiff\n
-    26. Welsh Springer Spaniel\n
-    27. Yorkshire Terrier\n\n
+    16. Pomeranian\n
+    17. Poodle\n
+    18. Pug\n
+    19. Rottweiler\n
+    20. Saint Bernard\n
+    21. Samoyed\n
+    22. Shih-Tzu\n
+    23. Siberian Husky\n
+    24. Welsh Springer Spaniel\n
+    25. Yorkshire Terrier\n\n
     </string>
 </resources>
