@@ -273,8 +273,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        viewModel.clearData();
-
         if (requestCode == REQUEST_CAPTURE_CODE) {
 
             Bitmap capturedPhoto = getBitmapFromUri(photoUri);
@@ -289,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(rotateAngle == 0){
 
+                viewModel.clearData();
                 viewModel.setBitmap(capturedPhoto);
             }
 
@@ -300,6 +299,7 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap bitmap = Bitmap.createBitmap(capturedPhoto, 0, 0, capturedPhoto.getWidth(),
                         capturedPhoto.getHeight(), matrix, true);
 
+                viewModel.clearData();
                 viewModel.setBitmap(bitmap);
             }
 
@@ -324,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
+            viewModel.clearData();
             viewModel.setBitmap(bitmap);
 
             imageView.setImageBitmap(viewModel.getBitmap());
