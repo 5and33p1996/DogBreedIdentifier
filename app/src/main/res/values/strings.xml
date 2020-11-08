@@ -39,7 +39,10 @@
     lighting, and the dog is in the centre of the frame and is in focus and in foreground. Make
     sure you have only one dog in the picture. Also, ensure that the dog is not wearing any
     clothing, like those fancy hats or sweaters, as they may affect results. Also do note that
-    the face of the dog is visible to get the best possible result.
+    the face of the dog is visible to get the best possible result.\n\n
+        If the dog is of mixed breed, then the accuracy of the results may suffer because it is almost
+        impossible to determine the mix of breeds of a dog, just by looking at a photo without proper
+        DNA Test.
     \n\nStill not getting accurate results? Check the list of breeds which the app can currently
     recognize (support for more will be coming soon!)\n
     1. Basenji\n
