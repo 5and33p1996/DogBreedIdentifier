@@ -312,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(uri == null){
 
-                ToastUtil.showToast(this, "Unable to get the image!");
+                ToastUtil.showToast(this, "Unable to open the file");
                 return;
             }
 
@@ -320,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(bitmap == null){
                 //Error
-                ToastUtil.showToast(this, "Unable to load Bitmap!");
+                ToastUtil.showToast(this, "Unable to open the file");
                 return;
             }
 
