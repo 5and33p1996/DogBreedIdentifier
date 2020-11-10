@@ -183,8 +183,11 @@ public class MainActivity extends AppCompatActivity {
     public void onCaptureClick(View view){
 
         //Take a picture
-        //TODO: In the manifest it is declared that camera is not essential, thus check at runtime
-        //if a device has camera or not
+        if(!getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)){
+
+            ToastUtil.showToast(this, "No camera detected!!");
+            return;
+        }
 
         if(checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, WRITE_PERMISSION_CODE)){
 
