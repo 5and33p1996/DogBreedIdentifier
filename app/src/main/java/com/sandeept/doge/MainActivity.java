@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -123,9 +124,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Bundle networkBundleExtra = new Bundle();
+        networkBundleExtra.putInt("rdp",1);
+
         AdView adView = findViewById(R.id.adView);
-        AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request);
+        AdRequest adRequest = new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class,
+                networkBundleExtra).build();
+        adView.loadAd(adRequest);
     }
 
     @Override
