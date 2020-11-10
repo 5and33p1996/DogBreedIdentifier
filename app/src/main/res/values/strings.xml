@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DogBreedIdentifier</string>
+    <string name="app_name">Doge</string>
     <string name="result_string">Showing Top 5 results</string>
     <string name="not_satisfied"><u>Not satisfied with the results?</u></string>
 
