@@ -15,6 +15,7 @@
 
     <string name="about">About</string>
     <string name="best_results">Getting the best results</string>
+    <string name="supported_breeds">Supported Breeds</string>
 
     <string name="about_text">
         How to read the results?</string>
@@ -43,9 +44,15 @@
         If the dog is of mixed breed, then the accuracy of the results may suffer because it is almost
         impossible to determine the mix of breeds of a dog, just by looking at a photo without proper
         DNA Test.
-    \n\nStill not getting accurate results? Check the list of breeds which the app can currently
-    recognize (support for more will be coming soon!)\n
-    1. Basenji\n
+    \n\nStill not getting accurate results?
+    </string>
+
+    <string name="click_here"><u>Click here</u></string>
+    <string name="to_check">to check the list of supported breeds</string>
+
+    <string name="supported_breeds_text">
+        <b>List of supported breeds\n\n</b>
+        1. Basenji\n
     2. Basset\n
     3. Beagle\n
     4. Bernese Mountain Dog\n
@@ -70,5 +77,6 @@
     23. Siberian Husky\n
     24. Welsh Springer Spaniel\n
     25. Yorkshire Terrier\n\n
+        Support for more coming soon!!
     </string>
 </resources>

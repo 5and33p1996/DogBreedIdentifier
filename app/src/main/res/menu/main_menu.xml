@@ -6,6 +6,11 @@
         android:id="@+id/getting_best_results"
         android:title="@string/best_results"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/supported_breeds"
+        android:title="@string/supported_breeds"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/about"
         android:title="@string/about"

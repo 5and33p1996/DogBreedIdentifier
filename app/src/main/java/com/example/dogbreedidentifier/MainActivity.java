@@ -166,6 +166,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        else if(item.getItemId() == R.id.supported_breeds){
+
+            Intent intent = new Intent(this, SupportedBreedsActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
         else{
 
             return super.onOptionsItemSelected(item);
@@ -316,7 +324,9 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            Bitmap bitmap = getBitmapFromUri(uri);
+            photoUri = uri;
+
+            Bitmap bitmap = getBitmapFromUri(photoUri);
 
             if(bitmap == null){
                 //Error
@@ -324,8 +334,25 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            viewModel.clearData();
-            viewModel.setBitmap(bitmap);
+            int rotateAngle = getScreenOrientation();
+
+            if(rotateAngle == 0){
+
+                viewModel.clearData();
+                viewModel.setBitmap(bitmap);
+            }
+
+            else{
+
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotateAngle);
+
+                Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                        bitmap.getHeight(), matrix, true);
+
+                viewModel.clearData();
+                viewModel.setBitmap(rotatedBitmap);
+            }
 
             imageView.setImageBitmap(viewModel.getBitmap());
         }
