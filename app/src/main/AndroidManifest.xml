@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dogbreedidentifier">
+    package="com.sandeept.doge">
 
     <uses-feature
         android:name="android.hardware.camera2"
@@ -16,15 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SupportedBreedsActivity"></activity>
+        <activity android:name="com.sandeept.doge.SupportedBreedsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3991893709716131~1833055334" />
 
-        <activity android:name=".BestResultsActivity" />
-        <activity android:name=".AboutActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.sandeept.doge.BestResultsActivity" />
+        <activity android:name="com.sandeept.doge.AboutActivity" />
+        <activity android:name="com.sandeept.doge.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

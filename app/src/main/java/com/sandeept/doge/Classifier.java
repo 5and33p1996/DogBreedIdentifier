@@ -1,4 +1,4 @@
-package com.example.dogbreedidentifier;
+package com.sandeept.doge;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

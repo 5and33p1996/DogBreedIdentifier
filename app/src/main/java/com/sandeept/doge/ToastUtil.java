@@ -1,4 +1,4 @@
-package com.example.dogbreedidentifier;
+package com.sandeept.doge;
 
 import android.content.Context;
 import android.widget.Toast;
