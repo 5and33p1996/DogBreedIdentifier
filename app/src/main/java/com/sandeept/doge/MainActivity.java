@@ -14,12 +14,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+
 import androidx.exifinterface.media.ExifInterface;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -38,7 +38,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class,
                 networkBundleExtra).build();
-        adView.loadAd(adRequest);
+        //adView.loadAd(adRequest);
     }
 
     @Override
@@ -266,11 +265,9 @@ public class MainActivity extends AppCompatActivity {
 
         Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        String relativeLocation = Environment.DIRECTORY_PICTURES + File.separator + "Doge";
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
+//        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
 
         photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
