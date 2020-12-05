@@ -1,6 +1,7 @@
 package com.sandeept.doge;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import androidx.lifecycle.ViewModel;
 
@@ -10,6 +11,7 @@ public class UIDataViewModel extends ViewModel {
 
     private Bitmap photo = null;
     private HashMap<String, Float> predictions = null;
+    private Uri photoUri = null;
 
     private long timeTaken;
 
@@ -42,6 +44,16 @@ public class UIDataViewModel extends ViewModel {
     Bitmap getBitmap(){
 
         return photo;
+    }
+
+    Uri getPhotoUri()
+    {
+        return photoUri;
+    }
+
+    void setPhotoUri(Uri photoUri)
+    {
+        this.photoUri = photoUri;
     }
 
     boolean hasData(){

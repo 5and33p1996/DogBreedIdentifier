@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int NUMBER_OF_RESULTS = 5;
 
     private UIDataViewModel viewModel;
-    private Uri photoUri;
 
     private ImageView imageView;
     private TextView timeView;
@@ -269,9 +268,10 @@ public class MainActivity extends AppCompatActivity {
         contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
 //        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
 
-        photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        Uri photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+        viewModel.setPhotoUri(photoUri);
 
-        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, viewModel.getPhotoUri());
         startActivityForResult(captureIntent, REQUEST_CAPTURE_CODE);
     }
 
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CAPTURE_CODE) {
 
-            Bitmap capturedPhoto = getBitmapFromUri(photoUri);
+            Bitmap capturedPhoto = getBitmapFromUri(viewModel.getPhotoUri());
 
             if(capturedPhoto == null){
 
@@ -329,9 +329,9 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            photoUri = uri;
+            viewModel.setPhotoUri(uri);
 
-            Bitmap bitmap = getBitmapFromUri(photoUri);
+            Bitmap bitmap = getBitmapFromUri(viewModel.getPhotoUri());
 
             if(bitmap == null){
                 //Error
@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
 
-            InputStream inputStream = getContentResolver().openInputStream(photoUri);
+            InputStream inputStream = getContentResolver().openInputStream(viewModel.getPhotoUri());
 
             if(inputStream == null){
 
