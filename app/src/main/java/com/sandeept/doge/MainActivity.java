@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,12 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.review.testing.FakeReviewManager;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -372,7 +379,6 @@ public class MainActivity extends AppCompatActivity {
         cardView.setVisibility(View.VISIBLE);
         inferenceButton.setVisibility(View.VISIBLE);
         resultLayout.setVisibility(View.GONE);
-
     }
 
     Bitmap getBitmapFromUri(Uri uri){
@@ -450,6 +456,36 @@ public class MainActivity extends AppCompatActivity {
 
         progressLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.VISIBLE);
+
+        final ReviewManager reviewManager = ReviewManagerFactory.create(this);
+        final Activity activity = this;
+
+        Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+
+        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(@NonNull Task<ReviewInfo> task) {
+
+                if(task.isSuccessful())
+                {
+                    ReviewInfo info = task.getResult();
+
+                    Task<Void> flow = reviewManager.launchReviewFlow(activity, info);
+                    flow.addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            //No matter what, continue
+                            if(task.isSuccessful()) {
+                                ToastUtil.showToast(getApplicationContext(), "OnComplete hit");
+                            }
+                            else{
+                                ToastUtil.showToast(getApplicationContext(), "Not Successful!!");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private int getScreenOrientation(){
