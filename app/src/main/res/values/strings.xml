@@ -9,7 +9,7 @@
 
     <string name="pick_file">Pick a File</string>
     <string name="take_photo">Take a Photo</string>
-    <string name="start_inference">Start Inference</string>
+    <string name="start_inference">Identify</string>
 
     <string name="progress_string">Identifying…</string>
 
