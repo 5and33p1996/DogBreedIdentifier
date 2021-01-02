@@ -269,6 +269,13 @@ public class MainActivity extends AppCompatActivity {
 //        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, relativeLocation);
 
         Uri photoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+
+        if(photoUri == null)
+        {
+            ToastUtil.showToast(this, "Unable to capture image!");
+            return;
+        }
+
         viewModel.setPhotoUri(photoUri);
 
         captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, viewModel.getPhotoUri());
