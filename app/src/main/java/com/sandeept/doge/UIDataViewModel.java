@@ -70,5 +70,6 @@ public class UIDataViewModel extends ViewModel {
         }
 
         predictions = null;
+        photoUri = null;
     }
 }

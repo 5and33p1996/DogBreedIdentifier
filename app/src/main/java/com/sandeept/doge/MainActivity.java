@@ -10,7 +10,9 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -41,7 +43,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.review.testing.FakeReviewManager;
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
 
@@ -61,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int WRITE_PERMISSION_CODE = 2;
 
     private static final int NUMBER_OF_RESULTS = 5;
+
+    private static final String STAT_PREFERENCES = "com.sandeeptadepalli.doge.STAT_PREFERENCE";
+    private static final String NO_OF_TIMES_USED_KEY = "TIMES_USED";
+    private static final int TIMES_USED_DEF_VALUE = 0;
 
     private UIDataViewModel viewModel;
 
@@ -251,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         inferenceButton.setVisibility(View.GONE);
-        displayResult();
+        displayResult(false);
     }
 
     @Override
@@ -411,6 +416,17 @@ public class MainActivity extends AppCompatActivity {
         inferenceButton.setVisibility(View.GONE);
         progressLayout.setVisibility(View.VISIBLE);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(STAT_PREFERENCES, Context.MODE_PRIVATE);
+        int no_of_times_used = sharedPreferences.getInt(NO_OF_TIMES_USED_KEY, TIMES_USED_DEF_VALUE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(NO_OF_TIMES_USED_KEY, ++no_of_times_used);
+        editor.apply();
+
+        final boolean shouldAskReview;
+
+        shouldAskReview = no_of_times_used == 2 || no_of_times_used % 4 == 0;
+
         new Thread(new Runnable(){
             public void run(){
 
@@ -423,14 +439,14 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         viewModel.setPredictions(predictions);
                         viewModel.setTimeTaken(endTime - startTime);
-                        displayResult();
+                        displayResult(shouldAskReview);
                     }
                 });
             }
         }).start();
     }
 
-    private void displayResult(){
+    private void displayResult(boolean shouldAskReview){
 
         String timeString = "Time Taken for inference - " + viewModel.getTimeTaken() + "ms";
         timeView.setText(timeString);
@@ -457,6 +473,14 @@ public class MainActivity extends AppCompatActivity {
         progressLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.VISIBLE);
 
+        if(shouldAskReview)
+        {
+            requestReview();
+        }
+    }
+
+    private void requestReview()
+    {
         final ReviewManager reviewManager = ReviewManagerFactory.create(this);
         final Activity activity = this;
 
@@ -475,12 +499,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             //No matter what, continue
-                            if(task.isSuccessful()) {
-                                ToastUtil.showToast(getApplicationContext(), "OnComplete hit");
-                            }
-                            else{
-                                ToastUtil.showToast(getApplicationContext(), "Not Successful!!");
-                            }
                         }
                     });
                 }
