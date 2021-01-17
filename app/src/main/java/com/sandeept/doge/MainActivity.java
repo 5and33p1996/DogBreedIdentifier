@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class,
                 networkBundleExtra).build();
-        adView.loadAd(adRequest);
+        //adView.loadAd(adRequest);
     }
 
     @Override
