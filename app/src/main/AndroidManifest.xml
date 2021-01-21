@@ -16,15 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.sandeept.doge.SupportedBreedsActivity"></activity>
+        <activity android:name=".IncorrectResultActivity"></activity>
+        <activity android:name=".SupportedBreedsActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3991893709716131~1833055334" />
 
-        <activity android:name="com.sandeept.doge.BestResultsActivity" />
-        <activity android:name="com.sandeept.doge.AboutActivity" />
-        <activity android:name="com.sandeept.doge.MainActivity">
+        <activity android:name=".BestResultsActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

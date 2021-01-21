@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Doge</string>
-    <string name="result_string">Showing Top 5 results</string>
+    <string name="am_i_right"><u>Am I right?</u></string>
     <string name="not_satisfied"><u>Not satisfied with the results?</u></string>
 
     <string name="image_description">Chosen Image</string>
@@ -19,6 +19,9 @@
 
     <string name="about_text">
         How to read the results?</string>
+
+    <string name="result_confidence_medium">I\'m not very confident but here are my predictions</string>
+    <string name="result_confidence_low">Hmm....not really sure if its a dog, but if I had to guess here are my guesses</string>
 
     <string name="about_text_ans">
         The model outputs values, each one of which is called \"confidence\" value. This denotes the

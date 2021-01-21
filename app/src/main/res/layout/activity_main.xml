@@ -107,20 +107,10 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginBottom="5dp"
                                 android:fontFamily="@font/roboto_bold"
-                                android:text="@string/result_string"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginRight="4dp"
-                                android:layout_marginBottom="5dp"
-                                android:onClick="onResultHelp"
-                                android:text="@string/question_mark"
+                                android:text="@string/am_i_right"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                android:onClick="onAmIRight"/>
 
                         </LinearLayout>
 
@@ -131,6 +121,16 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp"
                             android:background="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/result_confidence"
+                            android:textSize="18sp"
+                            android:visibility="gone"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="10dp"/>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
@@ -252,23 +252,20 @@
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:id="@+id/not_satisfied"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
                             android:layout_marginRight="10dp"
-                            android:onClick="onNotSatisfied"
-                            android:text="@string/not_satisfied"
-                            android:textColor="@color/colorPrimary" />
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/colorPrimary" />
 
                         <TextView
                             android:id="@+id/time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp" />
 

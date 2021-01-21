@@ -1,6 +1,7 @@
 package com.sandeept.doge;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -11,6 +12,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -32,6 +34,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.ads.mediation.admob.AdMobAdapter;
@@ -40,6 +43,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView timeView;
+    private TextView resultConfidence;
     private CardView cardView;
     private LinearLayout progressLayout;
     private LinearLayout resultLayout;
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.img_view);
         timeView = findViewById(R.id.time);
+        resultConfidence = findViewById(R.id.result_confidence);
         cardView = findViewById(R.id.card_view);
         progressLayout = findViewById(R.id.progress_layout);
         inferenceButton = findViewById(R.id.inference_button);
@@ -217,16 +223,33 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_FILE_CODE);
     }
 
-    public void onResultHelp(View view){
+    public void onAmIRight(View view){
 
-        Intent intent = new Intent(this, AboutActivity.class);
-        startActivity(intent);
-    }
+        String[] items = {"The Result is correct", "The result is not correct"};
+        int checkedItem = 0;
 
-    public void onNotSatisfied(View view){
+        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
+        dialogBuilder.setTitle("Select one option")
+                .setNeutralButton("Cancel", null)
+                .setSingleChoiceItems(items, checkedItem, null)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-        Intent intent = new Intent(this, BestResultsActivity.class);
-        startActivity(intent);
+                        ListView listView = ((AlertDialog)dialogInterface).getListView();
+                        int pos = listView.getCheckedItemPosition();
+
+                        if(pos == 0)
+                        {
+                            ToastUtil.showToast(getApplicationContext(), "Thanks for your feedback!");
+                        }
+                        else if(pos == 1)
+                        {
+                            Intent intent = new Intent(getApplicationContext(), IncorrectResultActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }).show();
     }
 
     public boolean checkPermission(String permission, int requestCode){
@@ -455,6 +478,8 @@ public class MainActivity extends AppCompatActivity {
 
         int i = 0;
 
+        double highest_conf = 0;
+
         for(Map.Entry<String, Float> entry : viewModel.getPredictions().entrySet()){
 
             if(i == NUMBER_OF_RESULTS){
@@ -467,7 +492,30 @@ public class MainActivity extends AppCompatActivity {
             String confidence = df.format(entry.getValue() * 100) + "%";
             confidences[i].setText(confidence);
 
+            if(i == 0)
+            {
+                highest_conf = entry.getValue() * 100;
+            }
+
             i++;
+        }
+
+        if(highest_conf < 70.0)
+        {
+            resultConfidence.setVisibility(View.VISIBLE);
+
+            if(highest_conf < 30.0)
+            {
+                resultConfidence.setText(getResources().getText(R.string.result_confidence_low));
+            }
+            else
+            {
+                resultConfidence.setText(getResources().getText(R.string.result_confidence_medium));
+            }
+        }
+        else
+        {
+            resultConfidence.setVisibility(View.GONE);
         }
 
         progressLayout.setVisibility(View.GONE);
