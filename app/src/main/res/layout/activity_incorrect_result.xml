@@ -6,4 +6,83 @@
     android:layout_height="match_parent"
     tools:context="com.sandeept.doge.IncorrectResultActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/inc_result_toolbar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Doge | Dog Breed Identifier" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do you knwo the breed of the dog?"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:id="@+id/do_you_know_text"
+        app:layout_constraintTop_toBottomOf="@id/inc_result_toolbar"
+        app:layout_constraintLeft_toLeftOf="parent" />
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/radio_group"
+        app:layout_constraintLeft_toLeftOf="@id/do_you_know_text"
+        app:layout_constraintTop_toBottomOf="@id/do_you_know_text">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:id="@+id/i_know"
+            android:checked="true"
+            android:onClick="onRadioClick"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No, I do not know"
+            android:id="@+id/i_dont_know"
+            android:onClick="onRadioClick"/>
+    </RadioGroup>
+
+    <AutoCompleteTextView
+        android:id="@+id/autoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="Enter the breed of the dog here"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload the photo?"
+        android:id="@+id/switch_button"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="10dp"
+        android:checked="true"
+        app:layout_constraintLeft_toLeftOf="@id/radio_group"
+        app:layout_constraintTop_toBottomOf="@id/autoComplete"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_marginTop="10dp"
+        android:id="@+id/done_button"
+        android:onClick="onDoneClick"
+        app:layout_constraintTop_toBottomOf="@id/switch_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
