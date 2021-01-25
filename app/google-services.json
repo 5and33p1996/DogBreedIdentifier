@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "865218457107",
+    "project_id": "projectdoge-e24c6",
+    "storage_bucket": "projectdoge-e24c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865218457107:android:60d4e5a55d3de739d1d9e6",
+        "android_client_info": {
+          "package_name": "com.sandeeptadepalli.doge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865218457107-rk6mqln5m53i42v7llbq27gjnh78bhdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTYTQePAThd0sfAtzaT7CBXZ2RMbLmnyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865218457107-rk6mqln5m53i42v7llbq27gjnh78bhdv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

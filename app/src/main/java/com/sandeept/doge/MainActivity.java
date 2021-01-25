@@ -69,7 +69,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String STAT_PREFERENCES = "com.sandeeptadepalli.doge.STAT_PREFERENCE";
     private static final String NO_OF_TIMES_USED_KEY = "TIMES_USED";
+    private static final String NO_OF_TIMES_CORRECT = "TIMES_CORRECT";
+    private static final String NO_OF_TIMES_INCORRECT = "TIMES_INCORRECT";
+
     private static final int TIMES_USED_DEF_VALUE = 0;
+    private static final int TIMES_CORRECT_DEF_VALUE = 0;
+    private static final int TIMES_INCORRECT_DEF_VALUE = 0;
 
     private UIDataViewModel viewModel;
 
@@ -246,6 +251,15 @@ public class MainActivity extends AppCompatActivity {
                         else if(pos == 1)
                         {
                             Intent intent = new Intent(getApplicationContext(), IncorrectResultActivity.class);
+                            intent.putExtra("PhotoUri", viewModel.getPhotoUri().toString());
+
+                            Map.Entry<String, Float> firstElem = viewModel.getPredictions().entrySet().iterator().next();
+                            String topBreed = firstElem.getKey();
+                            Float topPercent = firstElem.getValue() * 100;
+
+                            intent.putExtra("TopBreed", topBreed);
+                            intent.putExtra("TopPercent", topPercent);
+
                             startActivity(intent);
                         }
                     }
@@ -330,7 +344,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_CAPTURE_CODE) {
 
-            Bitmap capturedPhoto = getBitmapFromUri(viewModel.getPhotoUri());
+            Uri photoUri = viewModel.getPhotoUri();
+            Bitmap capturedPhoto = BitmapUtil.getBitmapFromUri(photoUri, this);
 
             if(capturedPhoto == null){
 
@@ -344,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewModel.clearData();
                 viewModel.setBitmap(capturedPhoto);
+                viewModel.setPhotoUri(photoUri);
             }
 
             else{
@@ -356,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewModel.clearData();
                 viewModel.setBitmap(bitmap);
+                viewModel.setPhotoUri(photoUri);
             }
 
             imageView.setImageBitmap(viewModel.getBitmap());
@@ -373,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
 
             viewModel.setPhotoUri(uri);
 
-            Bitmap bitmap = getBitmapFromUri(viewModel.getPhotoUri());
+            Bitmap bitmap = BitmapUtil.getBitmapFromUri(viewModel.getPhotoUri(), this);
 
             if(bitmap == null){
                 //Error
@@ -387,6 +404,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewModel.clearData();
                 viewModel.setBitmap(bitmap);
+                viewModel.setPhotoUri(uri);
             }
 
             else{
@@ -399,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewModel.clearData();
                 viewModel.setBitmap(rotatedBitmap);
+                viewModel.setPhotoUri(uri);
             }
 
             imageView.setImageBitmap(viewModel.getBitmap());
@@ -407,31 +426,6 @@ public class MainActivity extends AppCompatActivity {
         cardView.setVisibility(View.VISIBLE);
         inferenceButton.setVisibility(View.VISIBLE);
         resultLayout.setVisibility(View.GONE);
-    }
-
-    Bitmap getBitmapFromUri(Uri uri){
-
-        Bitmap bitmap = null;
-
-        try{
-
-            InputStream inputStream = getContentResolver().openInputStream(uri);
-
-            if(inputStream == null){
-                return null;
-            }
-
-            bitmap = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-        }catch(FileNotFoundException fne){
-
-            return null;
-        }catch (IOException ioe){
-
-            return null;
-        }
-
-        return bitmap;
     }
 
     public void onStartInference(View view){
