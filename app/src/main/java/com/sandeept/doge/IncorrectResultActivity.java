@@ -104,10 +104,15 @@ public class IncorrectResultActivity extends AppCompatActivity {
     {
         String claim_breed = checkBreedString();
 
-        if(claim_breed == null){
+        if(claim_breed == null && iKnow.isChecked()){
 
             ToastUtil.showToast(this, "Please enter the name of the breed");
             return;
+        }
+
+        if(iDontKnow.isChecked())
+        {
+            claim_breed = "Unknown";
         }
 
         UploadTask uploadTask;

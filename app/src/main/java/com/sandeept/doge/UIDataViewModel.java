@@ -15,6 +15,8 @@ public class UIDataViewModel extends ViewModel {
 
     private long timeTaken;
 
+    private boolean isFeedbackProvided;
+
     public long getTimeTaken() {
         return timeTaken;
     }
@@ -54,6 +56,16 @@ public class UIDataViewModel extends ViewModel {
     void setPhotoUri(Uri photoUri)
     {
         this.photoUri = photoUri;
+    }
+
+    boolean getIsFeedbackProvided()
+    {
+        return isFeedbackProvided;
+    }
+
+    void setFeedbackProvided(boolean isFeedbackProvided)
+    {
+        this.isFeedbackProvided = isFeedbackProvided;
     }
 
     boolean hasData(){

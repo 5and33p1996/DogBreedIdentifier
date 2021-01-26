@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Doge</string>
     <string name="am_i_right"><u>Am I right?</u></string>
+    <string name="am_i_right_post_feedback"><i>Thanks for your feeedback!</i></string>
     <string name="not_satisfied"><u>Not satisfied with the results?</u></string>
 
     <string name="image_description">Chosen Image</string>

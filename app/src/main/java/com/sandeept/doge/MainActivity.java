@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView timeView;
     private TextView resultConfidence;
+    private TextView amIRight;
     private CardView cardView;
     private LinearLayout progressLayout;
     private LinearLayout resultLayout;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.img_view);
         timeView = findViewById(R.id.time);
         resultConfidence = findViewById(R.id.result_confidence);
+        amIRight = findViewById(R.id.am_i_right);
         cardView = findViewById(R.id.card_view);
         progressLayout = findViewById(R.id.progress_layout);
         inferenceButton = findViewById(R.id.inference_button);
@@ -233,6 +235,11 @@ public class MainActivity extends AppCompatActivity {
         String[] items = {"The Result is correct", "The result is not correct"};
         int checkedItem = 0;
 
+        if(viewModel.getIsFeedbackProvided())
+        {
+            return;
+        }
+
         MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(this);
         dialogBuilder.setTitle("Select one option")
                 .setNeutralButton("Cancel", null)
@@ -244,10 +251,14 @@ public class MainActivity extends AppCompatActivity {
                         ListView listView = ((AlertDialog)dialogInterface).getListView();
                         int pos = listView.getCheckedItemPosition();
 
+                        amIRight.setText(getResources().getText(R.string.am_i_right_post_feedback));
+                        viewModel.setFeedbackProvided(true);
+
                         if(pos == 0)
                         {
                             ToastUtil.showToast(getApplicationContext(), "Thanks for your feedback!");
                         }
+
                         else if(pos == 1)
                         {
                             Intent intent = new Intent(getApplicationContext(), IncorrectResultActivity.class);
@@ -426,6 +437,9 @@ public class MainActivity extends AppCompatActivity {
         cardView.setVisibility(View.VISIBLE);
         inferenceButton.setVisibility(View.VISIBLE);
         resultLayout.setVisibility(View.GONE);
+
+        amIRight.setText(R.string.am_i_right);
+        viewModel.setFeedbackProvided(false);
     }
 
     public void onStartInference(View view){
@@ -514,6 +528,10 @@ public class MainActivity extends AppCompatActivity {
 
         progressLayout.setVisibility(View.GONE);
         resultLayout.setVisibility(View.VISIBLE);
+
+        if(viewModel.getIsFeedbackProvided()) {
+            amIRight.setText(R.string.am_i_right_post_feedback);
+        }
 
         if(shouldAskReview)
         {
