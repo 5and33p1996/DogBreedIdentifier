@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,6 +36,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
     private RadioButton iDontKnow;
     private AutoCompleteTextView autoCompleteTextView;
     private SwitchMaterial switchMaterial;
+    private TextView breedInformText;
 
     private FirebaseStorage storage;
 
@@ -46,6 +48,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
         iKnow = findViewById(R.id.i_know);
         iDontKnow = findViewById(R.id.i_dont_know);
         switchMaterial = findViewById(R.id.switch_button);
+        breedInformText = findViewById(R.id.breed_inform_text);
 
         ArrayList<String> breeds = new ArrayList<>();
 
@@ -85,6 +88,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
                 if(checked){
 
                     iDontKnow.setChecked(false);
+                    breedInformText.setVisibility(View.VISIBLE);
                     autoCompleteTextView.setVisibility(View.VISIBLE);
                 }
                 break;
@@ -93,6 +97,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
                 if(checked){
 
                     iKnow.setChecked(false);
+                    breedInformText.setVisibility(View.INVISIBLE);
                     autoCompleteTextView.setVisibility(View.INVISIBLE);
                 }
 
