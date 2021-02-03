@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -461,6 +462,10 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable(){
             public void run(){
 
+                //Lock the screen rotation to avoid crashes....This is not the perfect solution to the crash
+                //but for now this works
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+
                 final long startTime = SystemClock.uptimeMillis();
                 final HashMap<String, Float> predictions = classifier.predict(viewModel.getBitmap());
                 final long endTime = SystemClock.uptimeMillis();
@@ -471,6 +476,9 @@ public class MainActivity extends AppCompatActivity {
                         viewModel.setPredictions(predictions);
                         viewModel.setTimeTaken(endTime - startTime);
                         displayResult(shouldAskReview);
+
+                        //Can Unlock the screen rotation now
+                        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
                     }
                 });
             }
