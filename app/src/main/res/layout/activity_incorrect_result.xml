@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Do you know the breed of the dog?"
+        android:text="@string/do_you_know_breed"
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="4dp"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/breed_inform_text"
         android:textSize="18sp"
-        android:text="If the breed name doesn't appear in the suggestions, then it is currently not supported and will be in the future :)"
+        android:text="@string/do_you_know_breed_unsopprted_text"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="10dp"

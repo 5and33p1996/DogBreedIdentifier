@@ -18,7 +18,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
 import androidx.exifinterface.media.ExifInterface;
@@ -51,7 +50,6 @@ import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -70,12 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String STAT_PREFERENCES = "com.sandeeptadepalli.doge.STAT_PREFERENCE";
     private static final String NO_OF_TIMES_USED_KEY = "TIMES_USED";
-    private static final String NO_OF_TIMES_CORRECT = "TIMES_CORRECT";
-    private static final String NO_OF_TIMES_INCORRECT = "TIMES_INCORRECT";
 
     private static final int TIMES_USED_DEF_VALUE = 0;
-    private static final int TIMES_CORRECT_DEF_VALUE = 0;
-    private static final int TIMES_INCORRECT_DEF_VALUE = 0;
 
     private UIDataViewModel viewModel;
 
@@ -154,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addNetworkExtrasBundle(AdMobAdapter.class,
                 networkBundleExtra).build();
-        //adView.loadAd(adRequest);
+        adView.loadAd(adRequest);
     }
 
     @Override
@@ -576,7 +570,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int getScreenOrientation(){
 
-        ExifInterface exifInterface = null;
+        ExifInterface exifInterface;
 
         try {
 

@@ -57,33 +57,6 @@
     <string name="click_here"><u>Click here</u></string>
     <string name="to_check">to check the list of supported breeds</string>
 
-    <string name="supported_breeds_text">
-        <b>List of supported breeds\n\n</b>
-        1. Basenji\n
-    2. Basset\n
-    3. Beagle\n
-    4. Bernese Mountain Dog\n
-    5. Bloodhound\n
-    6. Border Collie\n
-    7. Chihuahua\n
-    8. ChowChow\n
-    9. Doberman\n
-    10. German Shepherd\n
-    11. German Short Haired Pointer\n
-    12. Golden Retriever\n
-    13. Great Dane\n
-    14. Irish Wolfhound\n
-    15. Labrador Retriever\n
-    16. Pomeranian\n
-    17. Poodle\n
-    18. Pug\n
-    19. Rottweiler\n
-    20. Saint Bernard\n
-    21. Samoyed\n
-    22. Shih-Tzu\n
-    23. Siberian Husky\n
-    24. Welsh Springer Spaniel\n
-    25. Yorkshire Terrier\n\n
-        Support for more coming soon!!
-    </string>
+    <string name="do_you_know_breed">Do you know the breed of the dog?</string>
+    <string name="do_you_know_breed_unsopprted_text">If the breed name doesn\'t appear in the suggestions, then it is currently not supported and will be in the future :)</string>
 </resources>

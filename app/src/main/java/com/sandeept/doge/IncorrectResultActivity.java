@@ -40,6 +40,8 @@ public class IncorrectResultActivity extends AppCompatActivity {
 
     private FirebaseStorage storage;
 
+    private File textFile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
         ArrayAdapter<String> breedAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, breeds);
 
         autoCompleteTextView = findViewById(R.id.autoComplete);
-        autoCompleteTextView.setThreshold(2);
+        autoCompleteTextView.setThreshold(1);
         autoCompleteTextView.setAdapter(breedAdapter);
 
         storage = FirebaseStorage.getInstance();
@@ -108,6 +110,7 @@ public class IncorrectResultActivity extends AppCompatActivity {
     public void onDoneClick(View view)
     {
         String claim_breed = checkBreedString();
+        textFile = null;
 
         if(claim_breed == null && iKnow.isChecked()){
 
@@ -141,14 +144,25 @@ public class IncorrectResultActivity extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                ToastUtil.showToast(getApplicationContext(), "Uploaded " + taskSnapshot.getBytesTransferred() + "bytes");
+                if(textFile == null){
+
+                    return;
+                }
+
+                textFile.delete();
             }
         });
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                ToastUtil.showToast(getApplicationContext(), "Upload Failed!");
+
+                if(textFile == null){
+
+                    return;
+                }
+
+                textFile.delete();
             }
         });
 
@@ -217,22 +231,25 @@ public class IncorrectResultActivity extends AppCompatActivity {
                 .append(topPercent).append("\n")
                 .append(claimBreed).toString();
 
-        File file = new File(getFilesDir(), fileName);
+        textFile = new File(getFilesDir(), fileName);
         FileWriter writer;
 
         try{
-            writer = new FileWriter(file);
+            writer = new FileWriter(textFile);
             writer.write(fileContent);
             writer.close();
         }catch(IOException ioe){
-            //Do something
+            return null;
         }
 
-        Uri uri = Uri.fromFile(file);
+        Uri uri = Uri.fromFile(textFile);
 
         StorageReference storageReference = storage.getReference();
         StorageReference imageRef = storageReference.child("withoutImages/" + fileName);
 
-        return imageRef.putFile(uri);
+        StorageMetadata metadata = new StorageMetadata.Builder().setContentType("text/plain")
+                .build();
+
+        return imageRef.putFile(uri, metadata);
     }
 }
